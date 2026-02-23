@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Go Lambda with HTTP API v2 using custom build
+
+Resources:
+  GoApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Zip
+      Handler: bootstrap       # Required for custom runtime Go Lambda
+      Runtime: provided.al2    # Custom runtime
+      CodeUri: ../backend/bin/lambda-handler.zip
+      Timeout: 5
+      Events:
+        Api:
+          Type: HttpApi       # API Gateway v2
+          Properties:
+            Path: /snapshot/{leagueId}
+            Method: GET
