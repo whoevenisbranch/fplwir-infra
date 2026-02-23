@@ -1,2 +1,5 @@
 # AWS SAM output
 .aws-sam/*
+
+# Editor directories and files
+.DS_Store
