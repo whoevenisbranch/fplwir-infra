@@ -1,24 +1,28 @@
-terraform {
-  required_version = ">= 1.15"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 6.50.0"
-    }
-  }
+module "s3" {
+  source = "./modules/s3"
+
+  bucket_name = var.bucket_name
+  tags        = local.tags
 }
 
-provider "aws" {
-  region = "eu-west-2"
+module "iam" {
+  source = "./modules/iam"
+  
+  lambda_arn = module.lambda.lambda_arn
+  prefix = local.prefix
+  tags = local.tags
 }
 
+module "lambda" {
+  source = "./modules/lambda"
 
-terraform {
-  backend "s3" {
-    bucket = "fplwir-tf-backend"
-    key = "backend/terraform.tfstate"
-    region = "eu-west-2"
-    encrypt = true
-    use_lockfile = true
+  function_name = var.lambda_function_name
+  role_arn      = module.iam.lambda_role_arn
+  filename      = var.lambda_zip_path
+
+  env_vars = {
+    BUCKET_NAME = module.s3.bucket_name
   }
+
+  tags = local.tags
 }
