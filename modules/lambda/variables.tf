@@ -1,19 +1,19 @@
 variable "function_name" {
-    type = string
+  type = string
 }
 
 variable "role_arn" {
-    type = string
+  type = string
 }
 
 variable "filename" {
-    type = string
+  type = string
 }
 
 variable "tags" {
-    type = map(string)
+  type = map(string)
 }
 
 variable "env_vars" {
-    type = map(string)
+  type = map(string)
 }

@@ -10,14 +10,14 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "fplwir-tf-backend"
-    key = "backend/terraform.tfstate"
-    region = "eu-west-2" //variable not allowed in backend block
-    encrypt = true
+    bucket       = "fplwir-tf-backend"
+    key          = "backend/terraform.tfstate"
+    region       = "eu-west-2" //variable not allowed in backend block
+    encrypt      = true
     use_lockfile = true
   }
 }
 
 provider "aws" {
-  region = var.aws_region
+  region  = var.aws_region
 }

@@ -2,8 +2,12 @@ variable "prefix" {
   type = string
 }
 
+variable "bucket_name" {
+  type = string
+}
+
 variable "tags" {
-  type = map(string) 
+  type = map(string)
 }
 
 variable "lambda_arn" {

@@ -7,10 +7,11 @@ module "s3" {
 
 module "iam" {
   source = "./modules/iam"
-  
+
   lambda_arn = module.lambda.lambda_arn
-  prefix = local.prefix
-  tags = local.tags
+  bucket_name = var.bucket_name
+  prefix     = local.prefix
+  tags       = local.tags
 }
 
 module "lambda" {
@@ -18,7 +19,7 @@ module "lambda" {
 
   function_name = var.lambda_function_name
   role_arn      = module.iam.lambda_role_arn
-  filename      = var.lambda_zip_path
+  filename = "${path.root}/../backend/build/lambda.zip"
 
   env_vars = {
     BUCKET_NAME = module.s3.bucket_name
