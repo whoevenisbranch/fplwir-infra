@@ -9,7 +9,7 @@ resource "aws_lambda_function" "this" {
   handler = "bootstrap"
   runtime = "provided.al2023"
   architectures = ["arm64"]
-  timeout = 10
+  timeout = 300
 
   environment {
     variables = var.env_vars
